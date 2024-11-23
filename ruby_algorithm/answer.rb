@@ -13,27 +13,22 @@ def algorithm_01(number)
   end
   response
 end
-p algorithm_01(2)
 
 def algorithm_02(word)
   "#{word}".reverse
 end
-puts algorithm_02('QETNUR')
 
 def algorithm_03(word)
   text = "#{word}".chars.select.with_index { |_, idx| idx.even? }.join
   sentence = "#{word}".chars.select.with_index { |_, idx| idx.odd? }.join
   text + sentence
 end
-puts algorithm_03("あらるんごてりくずんむ")
 def algorithm_04(text)
   result = []
   word = "#{text}".split(' ')
   word.each do |w|
-    clean_word = w.gsub(/[^a-zA-Z]/, '')
+    clean_word = w.gsub(/[,.]/, '')
     result << clean_word.length
-
   end
   return result
 end
-p algorithm_04("Things may come to those who wait, but only the things left by those who hustle.")

@@ -1,31 +1,29 @@
 def algorithm_01(number)
   response = []
-  while number < 101 do
-    if number % 3 == 0 && number % 5 == 0
+  1.upto(number) do |u|
+    if u % 3 == 0 && u % 5 == 0
       response << "らんてくん"
-    elsif number % 3 == 0
+    elsif u % 3 == 0
       response << "らんて"
-    elsif number % 5 == 0
+    elsif u % 5 == 0
       response << "くん"
     else
-      response << number
+      response << u
     end
-    number += 1
   end
   response
 end
-number = 1
-p algorithm_01(number)
+p algorithm_01(2)
 
 def algorithm_02(word)
-  @word = "#{word}".reverse
-  puts @word
+  "#{word}".reverse
 end
-puts algorithm_02("RUNTEQ")
+puts algorithm_02('QETNUR')
 
 def algorithm_03(word)
-  @select = "#{word}".chars.select.with_index { |_, idx| idx.even? }.join
-  puts @select
+  text = "#{word}".chars.select.with_index { |_, idx| idx.even? }.join
+  sentence = "#{word}".chars.select.with_index { |_, idx| idx.odd? }.join
+  text + sentence
 end
 puts algorithm_03("あらるんごてりくずんむ")
 def algorithm_04(text)
@@ -34,6 +32,7 @@ def algorithm_04(text)
   word.each do |w|
     clean_word = w.gsub(/[^a-zA-Z]/, '')
     result << clean_word.length
+
   end
   return result
 end

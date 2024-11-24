@@ -1,6 +1,8 @@
 require 'minitest/autorun'
 require './object_oriented/vending_machine'
 require './object_oriented/drink'
+require './object_oriented/coin'
+require './object_oriented/drink_type'
 
 class VendingMachineTest < Minitest::Test
   def setup
@@ -8,11 +10,11 @@ class VendingMachineTest < Minitest::Test
   end
 
   def test_500円でコーラを購入
-    drink = @vm.buy(500, Drink::COKE)
+    drink = @vm.buy(Coin::FIVE_HUNDRED,Drink_Type::COKE)
     change = @vm.refund
 
-    assert_equal(Drink::COKE, drink.kind)
-    assert_equal(400, change)
+    assert_equal(Drink_Type::COKE,drink.kind)
+    assert_equal([Coin::ONE_HUNDRED] * 4, change)
   end
 
   def test_10円ではコーラは買えない

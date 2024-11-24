@@ -5,9 +5,9 @@ require './object_oriented/stock'
 class VendingMachine
 
   def initialize
-    @quantity_of_coke = Stock.new(5) # コーラの在庫数
-    @quantity_of_diet_coke = Stock.new(5) # ダイエットコーラの在庫数
-    @quantity_of_tea = Stock.new(5) # お茶の在庫数
+    @stock_of_coke = Stock.new(5) # コーラの在庫数
+    @stock_of_diet_coke = Stock.new(5) # ダイエットコーラの在庫数
+    @stock_of_tea = Stock.new(5) # お茶の在庫数
     @number_of_100yen = [Coin::ONE_HUNDRED] * 10 # 100円玉の在庫
     @change = [] # お釣り
   end
@@ -19,13 +19,13 @@ class VendingMachine
       return nil
     end
 
-    if kind_of_drink == Drink_Type::COKE && @stock_of_coke.quantity == 0
+    if kind_of_drink == DrinkType::COKE && @stock_of_coke.quantity == 0
       @change.push(payment)
       return nil
-    elsif kind_of_drink == Drink_Type::DIET_COKE && @stock_of_diet_coke.quantity == 0 then
+    elsif kind_of_drink == DrinkType::DIET_COKE && @stock_of_diet_coke.quantity == 0 then
       @change.push(payment)
       return nil
-    elsif kind_of_drink == Drink_Type::TEA && @stock_of_tea.quantity == 0 then
+    elsif kind_of_drink == DrinkType::TEA && @stock_of_tea.quantity == 0 then
       @change.push(payment)
       return nil
     end
@@ -42,25 +42,25 @@ class VendingMachine
       @change = @change.concat(calculate_change)
     end
 
-    if kind_of_drink == Drink_Type::COKE
+    if kind_of_drink == DrinkType::COKE
       @stock_of_coke.decrement
-    elsif kind_of_drink == Drink_Type::DIET_COKE then
+    elsif kind_of_drink == DrinkType::DIET_COKE then
       @stock_of_diet_coke.decrement
     else
-      @quantity_of_tea.decrement
+      @stock_of_tea.decrement
     end
 
     Drink.new(kind_of_drink)
   end
 
   def refund
-    result = @change
-    @change = 0
+    result = @change.dup
+    @change = []
     result
   end
 
-  def caluculation_change
+  def calculate_change
     @number_of_100yen.slice!(0,4)
-    [Coin::ONE_HANDRED] * 4
+    [Coin::ONE_HUNDRED] * 4
   end
 end

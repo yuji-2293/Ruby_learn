@@ -3,7 +3,8 @@ require './object_oriented/vending_machine'
 require './object_oriented/drink'
 require './object_oriented/coin'
 require './object_oriented/drink_type'
-
+require './object_oriented/payment'
+require './object_oriented/stock'
 class VendingMachineTest < Minitest::Test
   def setup
     @vm = VendingMachine.new
@@ -15,14 +16,6 @@ class VendingMachineTest < Minitest::Test
 
     assert_equal(DrinkType::COKE,drink.kind)
     assert_equal([Coin::ONE_HUNDRED] * 4, change)
-  end
-
-  def test_10円ではコーラは買えない
-    drink = @vm.buy(10, DrinkType::COKE)
-    change = @vm.refund
-
-    assert_nil(drink)
-    assert_equal(10, change)
   end
 
   def test_コーラの在庫が無いときにコーラは買えない

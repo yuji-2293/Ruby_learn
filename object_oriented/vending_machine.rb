@@ -1,10 +1,6 @@
-require './object_oriented/drink'
-require './object_oriented/coin'
-require './object_oriented/stock'
-require './object_oriented/change'
-require './object_oriented/cash_box'
 require './object_oriented/storage'
 require './object_oriented/coin_mech'
+require './object_oriented/drink'
 
 class VendingMachine
 
@@ -14,31 +10,18 @@ class VendingMachine
   end
 
   def buy(payment, kind_of_drink)
-    # 100円と500円だけ受け付ける
-    if payment !=Coin::ONE_HUNDRED && payment != Coin::FIVE_HUNDRED
-      @coin_mech.add_coin_into_change(payment)
+    @coin_mech.put(payment)
+
+    if @coin_mech.not_have_change?
       return nil
     end
 
-    if @storage.empty?(kind_of_drink)
-      @coin_mech.add_coin_into_change(payment)
+    if @storage.not_have_stock?(kind_of_drink)
       return nil
     end
 
-    # 釣り銭不足
-    if payment == Coin::FIVE_HUNDRED && @coin_mech.not_have_change?
-      @coin_mech.add_coin_into_change(payment)
-      return nil
-    end
-
-    if payment == Coin::ONE_HUNDRED
-      @coin_mech.add_coin_into_cash_box(payment)
-    elsif payment == Coin::FIVE_HUNDRED then
-      @coin_mech.add_change(@coin_mech.take_out_change)
-    end
-
-    @storage.decrement(kind_of_drink)
-    Drink.new(kind_of_drink)
+    @coin_mech.commit
+    @storage.take_out(kind_of_drink)
   end
 
   def refund

@@ -1,7 +1,9 @@
 require 'minitest/autorun'
 require './object_oriented/vending_machine'
-require './object_oriented/drink_type'
+require './object_oriented/drink'
 require './object_oriented/coin'
+require './object_oriented/drink_type'
+require './object_oriented/payment'
 require './object_oriented/stock'
 
 class VendingMachineTest < Minitest::Test

@@ -1,5 +1,5 @@
-require './object_oriented/change'
-require './object_oriented/coin'
+require './object_oriented/money/change'
+require './object_oriented/money/coin'
 
 class Payment
 

@@ -1,4 +1,4 @@
-require './object_oriented/coin'
+require './object_oriented/money/coin'
 
 class CashBox
 

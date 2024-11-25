@@ -1,4 +1,4 @@
-require './object_oriented/money'
+require './object_oriented/money/money'
 
 class Coin
   ONE_HUNDRED = Money.new(100)
